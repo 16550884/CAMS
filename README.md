@@ -23,5 +23,5 @@ Built With
      PHP 5 & 7 
 Usage
 -------------
-For more examples, please refer to the Documentation
+For more examples, please refer to the <a href="https://github.com/16550884/CAMS/blob/main/Final_16550884.pdf">Documentation</a>
 
