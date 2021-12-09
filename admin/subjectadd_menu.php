@@ -1,0 +1,118 @@
+
+<?php
+include 'conn.php';	
+include 'sessionhandaler.php';
+ 
+?>
+
+<?php
+$cur_dte=date("Y-m-d");
+
+$sql4="SELECT * FROM course_master INNER JOIN facalty_master ON course_master.facalty_key=facalty_master.facalty_key WHERE course_master.status=0";
+$result4=mysqli_query($link,$sql4);
+$option4 ="";
+while($row4=mysqli_fetch_array($result4)){
+	$option4 = $option4."<option value=$row4[course_key]>$row4[course_nme]-$row4[facalty_nme]</option>";			//Load Reagon Name
+}
+
+$sql1="SELECT * FROM year_master WHERE status=0";
+$result1=mysqli_query($link,$sql1);
+$option1 ="";
+while($row1=mysqli_fetch_array($result1)){
+	$option1 = $option1."<option value=$row1[year_key]>$row1[year_nme]</option>";			//Load Reagon Name
+}
+
+if(isset($_POST['btn_selesubject'])){
+	
+	$nm1=$_POST['sele_course'];
+	$nm2=$_POST['sele_semester'];
+	
+	echo "<script>
+			window.location.href='subject_info.php?cs=$nm1&yr=$nm2';
+		</script>";
+}
+
+?>
+
+<!DOCTYPE html>
+
+<html class="bootstrap-admin-vertical-centered">
+    <head>
+        <title>Subject Information</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+        <!-- Bootstrap -->
+        <link rel="stylesheet" media="screen" href="css/bootstrap.min.css">
+        <link rel="stylesheet" media="screen" href="css/bootstrap-theme.min.css">
+
+        <!-- Bootstrap Admin Theme -->
+        <link rel="stylesheet" media="screen" href="css/bootstrap-admin-theme.css">
+
+        <!-- Custom styles -->
+      <link rel="stylesheet" media="screen" href="css/common.css">
+    </head>
+    <body class="bc" style="background-image: url('images/a2.jpg')">
+	   <?php include('navi.php') ?>
+       <br>
+	   <br>
+	   <br>
+		<div class="row">
+				<div class="col-md-6">
+				
+				</div>
+				<div class="col-md-5">
+					<section class="panel panel-transparent">
+						<div class="panel-body panel-transparent">
+							<div style="font-size:16px;font-weight:bold;"align="center">Insert Subject </div>
+						</div>
+					</section>
+				</div>
+			</div>
+			<div class="row">
+                <div class="col-md-6">
+				
+				</div>
+				<div class="col-md-5">
+					<section class="panel panel-transparent">
+						<div class="panel-body panel-transparent">
+							<form method="post" name="f1">
+								<div class="form-group">                
+									<label class="control-label"><font color="red">&lowast;</font>Course </label> 
+									<select class="form-control input-sm" name="sele_course" required>
+										<?php
+                                                 	
+												
+													  echo "<option value='' disabled selected hidden>Please Choose.............</option>";
+													  echo $option4;
+												
+													
+                                          ?>
+									</select>
+								</div> 
+								<div class="form-group">                
+									<label class="control-label"><font color="red">&lowast;</font>Semester </label> 
+									<select class="form-control input-sm" name="sele_semester" required>
+										<?php
+                                            echo "<option value='' disabled selected hidden>Please Choose.............</option>";
+											echo $option1;
+                                          ?>
+									</select>
+								</div>
+								<button class="btn btn-lg btn-primary btn-block" name='btn_selesubject' type="submit">Select Course and Semester</button>
+							</form>
+						</div>
+					</section>
+				</div>
+			</div>
+
+		   <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
+        <script type="text/javascript" src="js/jquery-2.0.3.min.js"></script>
+
+        <!-- Include all compiled plugins (below), or include individual files as needed -->
+        <script type="text/javascript" src="js/bootstrap.min.js"></script>
+        <script type="text/javascript" src="js/twitter-bootstrap-hover-dropdown.min.js"></script>
+        <script type="text/javascript" src="js/bootstrap-admin-theme-change-size.js"></script>
+        <script type="text/javascript" src="vendors/easypiechart/jquery.easy-pie-chart.js"></script>
+    </body>
+</html>
